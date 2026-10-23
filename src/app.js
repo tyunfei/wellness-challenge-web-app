@@ -10,6 +10,14 @@ const authRoutes = require("./routes/authRoutes");
 
 
 const app = express();
+app.disable("x-powered-by");
+app.set("trust proxy", 1); // Railway's reverse proxy.
+app.use((req, res, next) => {
+  res.set("X-Content-Type-Options", "nosniff");
+  res.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.set("X-Frame-Options", "DENY");
+  next();
+});
 
 // Middleware
 app.use(express.json());
@@ -26,6 +34,15 @@ app.use("/pets",petRoutes)
 app.use("/wallet", walletRoutes);
 app.use("/auth", authRoutes); //CA2
 
+
+// Readiness check: verify DB access without exposing credentials.
+app.get("/healthz", (req, res) => {
+  const db = require("./services/db");
+  db.query("SELECT 1 AS ok", (err) => {
+    if (err) return res.status(503).json({ status: "unavailable" });
+    res.status(200).json({ status: "ok" });
+  });
+});
 
 // Root test route 
 app.get("/", (req, res) => {

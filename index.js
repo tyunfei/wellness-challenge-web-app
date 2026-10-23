@@ -1,8 +1,6 @@
-const app = require('./src/app');
+const app = require("./src/app");
 
-const PORT = 3000;
-
-
-app.listen(PORT,()=> {
-    console.log(`App listening to port ${PORT}`);
+const port = Number(process.env.PORT || 3000);
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Wellness Challenge listening on port ${port}`);
 });
