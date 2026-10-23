@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login / Register</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="navbar">
+  <div class="logo">Wellness Challenge</div>
+
+</header>
+
+<!-- =========================
+ AUTH CARD WRAPPER
+========================= -->
+<div class="wrapper">
+
+  <!-- Switch container for flip animation -->
+  <div class="card-switch">
+
+    <!-- Checkbox is used to toggle login/register -->
+    <label class="switch">
+
+      <!-- Hidden checkbox controlling flip animation -->
+      <input type="checkbox" class="toggle">
+
+      <!-- Slider animation element -->
+      <span class="slider"></span>
+
+      <!-- Decorative card side -->
+      <span class="card-side"></span>
+
+      <!-- Inner flip container -->
+      <div class="flip-card__inner">
+
+        <!-- LOGIN -->
+        <div class="flip-card__front">
+          <div class="title">Log in</div>
+
+          <form id="loginForm" class="flip-card__form">
+
+            <!-- Username input -->
+            <input
+              id="loginUsername"
+              class="flip-card__input"
+              placeholder="Username"
+              type="text"
+              required
+            >
+
+            <!-- Password input -->
+            <input
+              id="loginPassword"
+              class="flip-card__input"
+              placeholder="Password"
+              type="password"
+              required
+            >
+
+            <!-- Submit login -->
+            <button class="flip-card__btn" type="submit">
+              Let's go!
+            </button>
+          </form>
+        </div>
+
+        <!-- REGISTER -->
+        <div class="flip-card__back">
+          <div class="title">Sign up</div>
+
+          <form id="registerForm" class="flip-card__form">
+
+            <!-- Username input -->
+            <input
+              id="registerUsername"
+              class="flip-card__input"
+              placeholder="Username"
+              type="text"
+              required
+            >
+
+            <!-- Password input -->
+            <input
+              id="registerPassword"
+              class="flip-card__input"
+              placeholder="Password"
+              type="password"
+              required
+            >
+
+            <!-- Confirm password input -->
+            <input
+              id="registerConfirmPassword"
+              class="flip-card__input"
+              placeholder="Confirm Password"
+              type="password"
+              required
+            >
+
+            <!-- Submit registration -->
+            <button class="flip-card__btn" type="submit">
+              Confirm!
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+    </label>
+  </div>
+</div>
+
+<!-- JWT token storage helper -->
+<script src="js/storage.js"></script>
+<!-- Login logic -->
+<script src="js/loginUser.js"></script>
+<!-- Register logic -->
+<script src="js/registerUser.js"></script>
+
+</body>
+</html>

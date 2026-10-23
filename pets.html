@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Pets</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"/>
+</head>
+<body>
+
+       <header class="navbar">
+    <div class="logo">Adopt pets</div>
+
+    <nav class="nav-right">
+        <a href="dashboard.html" class="nav-item"><i class="bi bi-house"></i> Dashboard</a>
+        <a href="challenges.html" class="nav-item"><i class="bi bi-lungs"></i> Challenges</a>
+        <a href="pets.html" class="nav-item"><i class="bi bi-piggy-bank"></i> Pets</a>
+        <a href="#" id="logoutBtn" class="nav-item nav-btn"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </nav>
+    </header>
+
+    <main class="container">
+
+    <!-- PAGE HEADER -->
+    <div class="pets-header">
+        <h1>Gamified Pets</h1>
+        <h2>Available Pet Species</h2>
+    </div>
+
+    <!-- AVAILABLE PETS GRID -->
+    <div id="speciesList" class="pets-grid"></div>
+
+    <!-- MY PETS SECTION -->
+    <div class="pets-header">
+        <h2>My Pets</h2>
+    </div>
+
+    <div id="myPetsList" class="pets-grid"></div>
+
+    </main>
+
+
+
+    <!-- JS (ORDER MATTERS) -->
+    <script src="js/storage.js"></script>
+    <script src="js/authGuard.js"></script>
+    <script src="js/pets.js"></script>
+    <script src="js/logout.js"></script>
+
+</body>
+</html>

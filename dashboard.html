@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"/>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+    <div class="logo">Dashboard</div>
+
+    <nav class="nav-right">
+        <a href="dashboard.html" class="nav-item"><i class="bi bi-house"></i> Dashboard</a>
+        <a href="challenges.html" class="nav-item"><i class="bi bi-lungs"></i> Challenges</a>
+        <a href="pets.html" class="nav-item"><i class="bi bi-piggy-bank"></i> Pets</a>
+        <a href="#" class="nav-item nav-btn" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </nav>
+    </header>
+
+
+    <!-- Main Content -->
+    
+    <main class="container dashboard-main">
+
+      <!-- LEFT COLUMN -->
+      <div class="dashboard-left">
+
+        <!-- PROFILE / STATS -->
+        <div class="dashboard-overlay">
+
+           <!-- Welcome message -->
+          <h1 class="dashboard-title">
+            Welcome back, <span id="username">-</span> <i class="bi bi-emoji-laughing"></i>
+          </h1>
+
+          <!-- Points + Coins Display -->
+          <div class="dashboard-stats">
+            <!-- Points card -->
+            <div class="stat-card">
+              <span class="stat-icon"><i class="bi bi-star-fill"></i></span>
+              <p class="stat-label">Points</p>
+              <p class="stat-value" id="points">0</p>
+            </div>
+
+            <!-- Coins card -->
+            <div class="stat-card">
+              <span class="stat-icon"><i class="bi bi-piggy-bank-fill"></i></span>
+              <p class="stat-label">Coins</p>
+              <p class="stat-value" id="coins">0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRESS -->
+        <section class="card progress-card">
+
+          <h3>📈 My Progress</h3>
+
+          <!-- Progress summary boxes -->
+          <div class="progress-stats">
+
+            <!-- Total completed -->
+            <div class="progress-box">
+              <p class="progress-label">Total Completed</p>
+              <p id="totalCompleted" class="progress-value">0</p>
+            </div>
+
+            <!-- Today completed -->
+            <div class="progress-box">
+              <p class="progress-label">Today</p>
+              <p id="todayCompleted" class="progress-value">0</p>
+            </div>
+
+            <!-- Weekly completed -->
+            <div class="progress-box">
+              <p class="progress-label">This Week</p>
+              <p id="weeklyCompleted" class="progress-value">0</p>
+            </div>
+
+          </div>
+
+          <!-- Recent completion history -->
+          <h4 class="history-title">✅ Completed Challenges</h4>
+
+          <!-- Filled dynamically by JS -->
+          <div id="completionHistory" class="history-list">
+            Loading history...
+          </div>
+
+          <!-- Weekly activity chart -->
+          <h4 class="history-title">📊 Last 7 Days Activity</h4>
+
+          <!-- Chart.js renders inside this canvas -->
+          <canvas id="activityChart" height="120"></canvas>
+
+        </section>
+
+        <!-- LEADERBOARD -->
+        <section class="card leaderboard-card">
+          <h3>🏆 Leaderboard</h3>
+
+          <!-- Leaderboard data inserted by JS -->
+          <div id="leaderboardList" class="leaderboard-list">
+            Loading leaderboard...
+          </div>
+        </section>
+
+      </div>
+
+
+      <!-- RIGHT COLUMN -->
+      <div class="dashboard-right">
+
+        <!-- PETS -->
+        <section class="card">
+          <h3>My Pets</h3>
+
+          <!-- Active pet display -->
+          <div id="activePetBox"></div>
+
+          <!-- Other owned pets -->
+          <div id="dashboardPets" class="pets-grid"></div>
+        </section>
+
+      </div>
+
+    </main>
+
+
+    <!-- JS-->
+    <!-- JWT storage helper -->
+    <script src="js/storage.js"></script>
+    <!-- Protect page (redirect if not logged in) -->
+    <script src="js/authGuard.js"></script>
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Dashboard logic -->
+    <script src="js/loadDashboard.js"></script>
+    <!-- Logout script -->
+    <script src="js/logout.js"></script>
+
+    <!-- Extra safety logout handler -->
+    <script>
+        // Simple logout handler
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            removeToken();
+        });
+    </script>
+
+</body>
+</html>

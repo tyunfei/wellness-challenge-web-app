@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenges</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"/>
+</head>
+<body>
+
+    <header class="navbar">
+    <div class="logo">Wellness Challenge Quests</div>
+
+    <nav class="nav-right">
+        <a href="dashboard.html" class="nav-item"><i class="bi bi-house"></i> Dashboard</a>
+        <a href="challenges.html" class="nav-item"><i class="bi bi-lungs"></i> Challenges</a>
+        <a href="pets.html" class="nav-item"><i class="bi bi-piggy-bank"></i> Pets</a>
+        <a href="#" id="logoutBtn" class="nav-item nav-btn"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </nav>
+    </header>
+
+
+    <main class="challenge-page">
+
+    <!-- Challenge display section -->
+    <section class="challenge-board">
+
+        <h1 class="challenge-title">Available Challenges</h1>
+        <p class="challenge-subtitle">
+        Complete challenges to earn points, coins, and pet XP.
+        </p>
+
+        <!-- Button to open Create Challenge modal -->
+        <button id="openCreateModal" class="create-challenge-btn">
+        ➕ Create Challenge
+        </button>
+
+        <!-- Container where challenges are dynamically inserted -->
+        <div id="challengeList" class="challenge-grid">
+ 
+        </div>
+    </section>
+
+    </main>
+
+    <!-- REWARD POPUP -->
+
+    <!-- Hidden popup shown when user completes a challenge -->
+    <div id="rewardPopup" class="reward-popup hidden">
+
+    <h2>🎉 Quest Completed!</h2>
+
+     <!-- Reward text inserted dynamically -->
+    <p id="rewardText"></p>
+
+    <!-- Close popup button -->
+    <button onclick="closeRewardPopup()">Awesome!</button>
+    </div>
+
+    <!-- CONFETTI CONTAINER -->
+    <!-- Used by JS to spawn falling confetti elements -->
+    <div id="confettiContainer"></div>
+
+    <!-- CREATE CHALLENGE MODAL -->
+    <!-- Hidden modal for creating new challenges -->
+    <div id="createModal" class="modal hidden">
+    <div class="modal-content">
+
+        <h2>Create New Quest</h2>
+
+        <!-- Input: Challenge description -->
+        <input id="newDesc" type="text" placeholder="Challenge description">
+
+        <!-- Input: Points reward -->
+        <input id="newPoints" type="number" placeholder="Points">
+
+        <!-- Input: Coins reward -->
+        <input id="newCoins" type="number" placeholder="Coins reward">
+
+        <!-- Input: Pet XP reward -->
+        <input id="newPetXP" type="number" placeholder="Pet XP reward">
+
+        <!-- Modal action buttons -->
+        <div class="modal-actions">
+            <!-- Create challenge button -->
+            <button id="createChallengeBtn">Create</button>
+
+            <!-- Close modal button -->
+            <button id="closeModalBtn">Cancel</button>
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+    <!-- JS-->
+
+    <!-- JWT storage helper -->
+    <script src="js/storage.js"></script>
+    <!-- JWT storage helper -->
+    <script src="js/authGuard.js"></script>
+    <!-- Main challenge logic -->
+    <script src="js/challenges.js"></script>
+    <!-- Logout functionality -->
+    <script src="js/logout.js"></script>
+
+</body>
+</html>
