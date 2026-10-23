@@ -18,16 +18,16 @@ exports.createCompletion = (challengeId, userId, details, callback) => {
 
 // Get completions by challenge
 // Used by GET /challenges/:challenge_id
-exports.getCompletionsByChallenge = (challengeId, callback) => {
+exports.getCompletionsByChallenge = (challengeId, userId, callback) => {
   // Returns user_id and completion details
   const sql = `
     SELECT user_id, details
     FROM UserCompletion
-    WHERE challenge_id = ?
+    WHERE challenge_id = ? AND user_id = ?
   `;
 
-  // Execute query with challengeId as parameter
-  db.query(sql, [challengeId], callback);
+  // Only return the authenticated user's completion notes.
+  db.query(sql, [challengeId, userId], callback);
 };
 
 

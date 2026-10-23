@@ -29,9 +29,10 @@ exports.createChallenge = (req, res) => {
 
    // Validate reward boundaries
   if (
-  parsedPoints <= 0 || parsedPoints > MAX_POINTS ||
-  parsedCoins < 0 || parsedCoins > MAX_COINS ||
-  parsedPetXp < 0 || parsedPetXp > MAX_PET_XP
+  typeof description !== "string" || !description.trim() || description.length > 300 ||
+  !Number.isInteger(parsedPoints) || parsedPoints <= 0 || parsedPoints > MAX_POINTS ||
+  !Number.isInteger(parsedCoins) || parsedCoins < 0 || parsedCoins > MAX_COINS ||
+  !Number.isInteger(parsedPetXp) || parsedPetXp < 0 || parsedPetXp > MAX_PET_XP
 ) {
   return res.status(400).json({
     error: "Points, coins and pet XP must be between 0 and 30"
@@ -98,8 +99,9 @@ exports.updateChallenge = (req, res) => {
   const { challenge_id } = req.params;
 
    // Validation
-  if (!description || !points) {
-    return res.status(400).json({ error: "Missing required fields" });
+  if (typeof description !== "string" || !description.trim() || description.length > 300 ||
+      !Number.isInteger(Number(points)) || Number(points) < 1 || Number(points) > 30) {
+    return res.status(400).json({ error: "Description must be 1-300 characters; points 1-30" });
   }
 
   // Get challenge to verify ownership

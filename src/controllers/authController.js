@@ -14,8 +14,9 @@ module.exports.register = (req, res) => {
   const { username, password } = req.body;
 
   // Validation: make sure fields are not empty
-  if (!username || !password) {
-    return res.status(400).json({ message: "Missing fields" });
+  if (typeof username !== "string" || !/^[A-Za-z0-9_]{3,30}$/.test(username) ||
+      typeof password !== "string" || password.length < 8 || password.length > 72) {
+    return res.status(400).json({ message: "Username: 3-30 letters, numbers or underscores. Password: 8-72 characters." });
   }
 
   // Hash the user's password before storing in database
@@ -58,6 +59,9 @@ module.exports.register = (req, res) => {
 module.exports.login = (req, res, next) => {
   // Get login input
   const { username, password } = req.body;
+  if (typeof username !== "string" || typeof password !== "string") {
+    return res.status(400).json({ message: "Username and password are required" });
+  }
 
   // Find user record by username
   UserModel.getUserByUsername(username, (err, results) => {

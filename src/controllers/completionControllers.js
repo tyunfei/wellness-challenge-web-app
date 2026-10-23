@@ -21,14 +21,15 @@ exports.completeChallenge = (req, res) => {
   const { details } = req.body;
 
   // Validate required fields
-  if (!user_id || !details) {
+  if (!user_id || typeof details !== "string" || !details.trim() || details.length > 500) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
 
   // 1. Check challenge exists
   Challenge.getChallengeById(challenge_id, (err, challenges) => {
-    if (!challenges.length || challenges.length === 0) {
+    if (err) return res.status(500).json({ error: "Challenge lookup failed" });
+    if (!challenges || challenges.length === 0) {
       return res.status(404).json({ error: "Challenge not found" });
     }
 
@@ -114,7 +115,8 @@ exports.getCompletions = (req, res) => {
   const { challenge_id } = req.params;
 
   // Retrieve all completion records for the given challenge
-  Completion.getCompletionsByChallenge(challenge_id, (err, results) => {
+  Completion.getCompletionsByChallenge(challenge_id, res.locals.userId, (err, results) => {
+    if (err) return res.status(500).json({ error: "Unable to load completions" });
 
     // If no completion records are found, return 404 Not Found
     if (results.length === 0) {
