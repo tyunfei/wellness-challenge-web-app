@@ -23,7 +23,8 @@ exports.adoptPet = (req, res) => {
   const { species_id, pet_name } = req.body;
 
   // Basic validation
-  if (!species_id || !pet_name) {
+  if (!Number.isSafeInteger(Number(species_id)) || Number(species_id) < 1 ||
+      typeof pet_name !== "string" || !pet_name.trim() || pet_name.trim().length > 40) {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
@@ -53,7 +54,11 @@ exports.adoptPet = (req, res) => {
       }
 
       // 3. Deduct coins
-      Wallet.deductCoins(userId, cost, () => {
+      Wallet.deductCoins(userId, cost, (deductErr, deduction) => {
+        if (deductErr) return res.status(500).json({ message: "Wallet update failed" });
+        if (!deduction || deduction.affectedRows !== 1) {
+          return res.status(403).json({ message: "Insufficient coins to adopt pet" });
+        }
 
         // 4. Unequip existing pets
         // Only ONE active pet allowed at a time
@@ -64,7 +69,7 @@ exports.adoptPet = (req, res) => {
             if (err) return res.status(500).json(err);
 
             // 6. Equip new pet
-            Pet.equipPet(result.insertId, () => {
+            Pet.equipPet(result.insertId, userId, () => {
               res.status(201).json({
                 message: "Pet adopted and equipped successfully",
                 pet_name,
@@ -83,24 +88,24 @@ exports.adoptPet = (req, res) => {
 // PUT /pets/:pet_id/equip
 //////////////////////////////////////////////////////
 exports.equipPet = (req, res) => {
-
   const userId = res.locals.userId;
-  const { pet_id } = req.params;
-
-  // 1. Unequip all pets
-  Pet.unequipAllPets(userId, () => {
-
-    // 2. Equip selected pet
-    Pet.equipPet(pet_id, (err, result) => {
-
-      // Pet ID not found
-      if (result.affectedRows === 0) {
-        return res.status(404).json({ message: "Pet not found" });
-      }
-
-      res.status(200).json({
-        message: "Pet equipped successfully",
-        pet_id
+  const petId = Number(req.params.pet_id);
+  if (!Number.isSafeInteger(petId) || petId < 1) {
+    return res.status(400).json({ message: "Invalid pet ID" });
+  }
+  Pet.getOwnedPetById(petId, userId, (lookupErr, pets) => {
+    if (lookupErr) return res.status(500).json({ message: "Pet lookup failed" });
+    if (!pets || pets.length === 0) {
+      return res.status(404).json({ message: "Pet not found" });
+    }
+    Pet.unequipAllPets(userId, (unequipErr) => {
+      if (unequipErr) return res.status(500).json({ message: "Unable to unequip pets" });
+      Pet.equipPet(petId, userId, (equipErr, result) => {
+        if (equipErr) return res.status(500).json({ message: "Unable to equip pet" });
+        if (!result || result.affectedRows === 0) {
+          return res.status(404).json({ message: "Pet not found" });
+        }
+        res.status(200).json({ message: "Pet equipped successfully", pet_id: petId });
       });
     });
   });

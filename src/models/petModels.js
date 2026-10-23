@@ -73,15 +73,21 @@ exports.unequipAllPets = (userId, callback) => {
 
 // Equip selected pet
 // Sets chosen pet as active
-exports.equipPet = (petId, callback) => {
+exports.equipPet = (petId, userId, callback) => {
   const sql = `
     UPDATE Pet
     SET is_active = 1
-    WHERE pet_id = ?
+    WHERE pet_id = ? AND owner_id = ?
   `;
-  db.query(sql, [petId], callback);
+  db.query(sql, [petId, userId], callback);
 };
 
+
+// Check that a pet belongs to the authenticated account.
+exports.getOwnedPetById = (petId, userId, callback) => {
+  db.query("SELECT pet_id FROM Pet WHERE pet_id = ? AND owner_id = ?",
+    [petId, userId], callback);
+};
 
 // GET CURRENTLY EQUIPPED PET
 // Used when awarding pet XP

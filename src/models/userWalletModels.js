@@ -14,9 +14,9 @@ exports.addCoins = (userId, coins, callback) => {
   const sql = `
     UPDATE UserWallet
     SET coins = coins + ?
-    WHERE user_id = ?
+    WHERE user_id = ? AND coins >= ?
   `;
-  db.query(sql, [coins, userId], callback);
+  db.query(sql, [coins, userId, coins], callback);
 };
 
 exports.addPoints = (userId, points, callback) => {
