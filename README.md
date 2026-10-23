@@ -36,9 +36,19 @@ flowchart LR
 
 ### Database design
 
-![Coursework entity-relationship diagram](assets/wellness_erd_coursework.png)
+The app uses seven MySQL tables. This is a **conceptual relationship overview**; the original coursework schema does not declare every relationship as a foreign-key constraint.
 
-*Simplified coursework ERD. The implementation includes additional fields; consult `src/configs/initTables.js` for the actual schema.*
+```mermaid
+flowchart LR
+    U[User] --> UC[UserCompletion]
+    WC[WellnessChallenge] --> UC
+    WC --> CR[ChallengeReward]
+    U --> UW[UserWallet]
+    U --> P[Pet]
+    PS[PetSpecies] --> P
+```
+
+*For the exact table definitions, see [`src/configs/initTables.js`](src/configs/initTables.js). The original coursework ERD image is available in the prepared portfolio archive, but has not been uploaded here.*
 
 ## How it works
 
@@ -99,7 +109,6 @@ wellness-challenge-web-app/
 │   ├── routes/                    # API definitions
 │   └── services/db.js             # MySQL connection pool
 ├── public/                        # Frontend pages, scripts, CSS and pet images
-├── assets/wellness_erd_coursework.png
 └── docs/PROJECT_NOTES.md          # Implementation and security caveats
 ```
 
