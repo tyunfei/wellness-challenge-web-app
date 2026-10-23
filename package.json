@@ -8,8 +8,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "create_schema": "node src/configs/createSchema.js",
-    "init_tables": "node src/configs/initTables.js",
-    "setup_demo": "node scripts/setupFreshDatabase.js"
+    "init_tables": "node src/configs/initTables.js"
   },
   "repository": {
     "type": "git",
@@ -29,8 +28,5 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.16.0",
     "nodemon": "^3.1.11"
-  },
-  "engines": {
-    "node": ">=20 <25"
   }
 }

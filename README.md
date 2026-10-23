@@ -60,10 +60,6 @@ flowchart LR
 
 **Example API areas:** `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `GET /challenges`, `GET /users/leaderboard/top`, `GET /pets/species`. See `src/routes/` for the full routing surface.
 
-## Deploy the interactive website
-
-See the [Railway deployment guide](docs/DEPLOYMENT.md). Hosting is not live until the Railway account and database are connected and the full app is tested.
-
 ## Run locally
 
 **Prerequisites:** Node.js and npm, a running MySQL server, and a local database account that can create a database.

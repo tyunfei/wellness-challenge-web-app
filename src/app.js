@@ -35,15 +35,6 @@ app.use("/wallet", walletRoutes);
 app.use("/auth", authRoutes); //CA2
 
 
-// Readiness check: verify DB access without exposing credentials.
-app.get("/healthz", (req, res) => {
-  const db = require("./services/db");
-  db.query("SELECT 1 AS ok", (err) => {
-    if (err) return res.status(503).json({ status: "unavailable" });
-    res.status(200).json({ status: "ok" });
-  });
-});
-
 // Root test route 
 app.get("/", (req, res) => {
   res.send("Gamified Wellness Challenge API running");
