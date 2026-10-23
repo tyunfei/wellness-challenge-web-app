@@ -4,11 +4,12 @@
   "description": "Gamified wellness challenge web app with JWT authentication, challenges, virtual pets and progress tracking",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node scripts/staticChecks.js",
     "dev": "nodemon index.js",
     "start": "node index.js",
     "create_schema": "node src/configs/createSchema.js",
-    "init_tables": "node src/configs/initTables.js"
+    "init_tables": "node src/configs/initTables.js",
+    "setup_demo": "node scripts/setupFreshDatabase.js"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,8 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.16.0",
     "nodemon": "^3.1.11"
+  },
+  "engines": {
+    "node": ">=20 <25"
   }
 }
