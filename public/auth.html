@@ -75,6 +75,7 @@
             <!-- Username input -->
             <input
               id="registerUsername"
+              minlength="3" maxlength="30" pattern="[A-Za-z0-9_]+"
               class="flip-card__input"
               placeholder="Username"
               type="text"
@@ -84,6 +85,7 @@
             <!-- Password input -->
             <input
               id="registerPassword"
+              minlength="8" maxlength="72"
               class="flip-card__input"
               placeholder="Password"
               type="password"
@@ -93,6 +95,7 @@
             <!-- Confirm password input -->
             <input
               id="registerConfirmPassword"
+              minlength="8" maxlength="72"
               class="flip-card__input"
               placeholder="Confirm Password"
               type="password"

@@ -5,6 +5,13 @@
 
 const TOKEN_KEY = "jwt_token";
 
+// Escape user-generated strings before inserting them into HTML templates.
+function escapeHTML(value) {
+  const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;",
+                     '"': "&quot;", "'": "&#39;" };
+  return String(value ?? "").replace(/[&<>"']/g, ch => entities[ch]);
+}
+
 //////////////////////////////////////////////////////
 // SAVE TOKEN
 //////////////////////////////////////////////////////

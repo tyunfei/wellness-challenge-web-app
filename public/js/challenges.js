@@ -61,7 +61,7 @@ function loadChallenges() {
           <span class="challenge-badge">QUEST</span>
 
         
-          <p class="challenge-title-text">${challenge.description}</p>
+          <p class="challenge-title-text">${escapeHTML(challenge.description)}</p>
 
 
           <div class="challenge-rewards">

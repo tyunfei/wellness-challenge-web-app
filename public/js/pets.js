@@ -201,7 +201,7 @@ function loadMyPets() {
           >
 
 
-          <h4>${pet.pet_name}</h4>
+          <h4>${escapeHTML(pet.pet_name)}</h4>
 
           <div class="rarity-badge">
             <span class="rarity-dot rarity-${rarityClass}"></span>

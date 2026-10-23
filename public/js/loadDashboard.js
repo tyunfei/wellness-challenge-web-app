@@ -127,7 +127,7 @@ function loadDashboardPets() {
               alt="${pet.species_name}"
             >
 
-            <p><strong>${pet.pet_name}</strong></p>
+            <p><strong>${escapeHTML(pet.pet_name)}</strong></p>
 
             <!-- RARITY BADGE -->
             <div class="rarity-badge">
@@ -169,7 +169,7 @@ function loadDashboardPets() {
             alt="${pet.species_name}"
           >
 
-          <h4>${pet.pet_name}</h4>
+          <h4>${escapeHTML(pet.pet_name)}</h4>
         `;
 
         petsGrid.appendChild(div);
@@ -228,7 +228,7 @@ function loadLeaderboard() {
 
         row.innerHTML = `
           <span class="rank-badge ${medalClass}">
-            ${rankIcon} ${user.username}
+            ${rankIcon} ${escapeHTML(user.username)}
           </span>
           <span>
             ${user.points} pts
@@ -287,7 +287,7 @@ function loadProgress() {
       const date = new Date(item.completed_at).toLocaleString();
 
       div.innerHTML = `
-        <span>${item.description}</span>
+        <span>${escapeHTML(item.description)}</span>
         <span>${date}</span>
       `;
 
